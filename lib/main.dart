@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        primaryColor: Colors.black,
+        backgroundColor: Colors.white,//Color(0xff343442),
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -60,8 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
       statusBarColor: Colors.white, // Color for Android
       statusBarBrightness: Brightness.dark // Dark == white status bar -- for IOS.
     ));
+    var backgroundColor = Theme.of(context).backgroundColor;
     return Scaffold(
-      backgroundColor: Color(0xff343442),
+      backgroundColor: backgroundColor,
       body: Stack(children: <Widget>[
           MenuListWidget(),
           HomeWidget()

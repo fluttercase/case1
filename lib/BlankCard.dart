@@ -61,7 +61,7 @@ class BlankCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.blueAccent,
-          boxShadow: [BoxShadow(color: Color(0x99448AFF), blurRadius: 8)]
+          boxShadow: [BoxShadow(color: Color(0x11448AFF), blurRadius: 6, spreadRadius: 5)]
         ),
       ),
     );

@@ -16,6 +16,7 @@ class _MenuListWidgetState extends State<MenuListWidget> {
   }
   @override
   Widget build(BuildContext context) {
+    var primaryColor = Theme.of(context).primaryColor;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -32,7 +33,7 @@ class _MenuListWidgetState extends State<MenuListWidget> {
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
-              child: Text('Roger Hoffman', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+              child: Text('Roger Hoffman', style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),),
             ),
             Container(
               margin: EdgeInsets.only(top: 6),
