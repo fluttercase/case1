@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './CardPageView.dart';
-import './DetailRecordPage.dart';
+import 'package:floryday/DetailRecordPage.dart';
+import 'package:floryday/CardPageView.dart';
+
 class RecordList extends StatefulWidget {
   final Color color;
   RecordList({Key key, this.color = Colors.white}) : super(key: key);

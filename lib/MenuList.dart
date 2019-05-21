@@ -17,6 +17,7 @@ class _MenuListWidgetState extends State<MenuListWidget> {
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
+    
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -43,32 +44,32 @@ class _MenuListWidgetState extends State<MenuListWidget> {
             MenuItemButton(
               title: 'Dashboard',
               icon: Icons.card_giftcard,
-              color: selected == 1 ? Colors.white:Colors.grey,
+              color: selected == 1 ? Colors.black:Colors.grey,
               onMenuTap: () {
                 onClick(1);
               },
             ),
             MenuItemButton(
               title: 'Messages',
-              color: selected == 2 ? Colors.white:Colors.grey,
+              color: selected == 2 ? Colors.black:Colors.grey,
               icon: Icons.email,
               onMenuTap: () {onClick(2);},
             ),
             MenuItemButton(
               title: 'Utility Bills',
-              color: selected == 3 ? Colors.white:Colors.grey,
+              color: selected == 3 ? Colors.black:Colors.grey,
               icon: Icons.settings,
               onMenuTap: () {onClick(3);},
             ),
             MenuItemButton(
               title: 'Founds Transfer',
-              color: selected == 4 ? Colors.white:Colors.grey,
+              color: selected == 4 ? Colors.black:Colors.grey,
               icon: Icons.swap_horiz,
               onMenuTap: () {onClick(4);},
             ),
             MenuItemButton(
               title: 'Branches',
-              color: selected == 5 ? Colors.white:Colors.grey,
+              color: selected == 5 ? Colors.black:Colors.grey,
               icon: Icons.blur_linear,
               onMenuTap: () {onClick(5);},
             ),

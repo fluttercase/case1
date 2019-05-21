@@ -1,6 +1,5 @@
-import 'dart:math';
-import './BlankCard.dart';
 import 'package:flutter/material.dart';
+import 'package:floryday/BlankCard.dart';
 
 class CardPageView extends StatefulWidget {
   CardPageView({Key key}) : super(key: key);

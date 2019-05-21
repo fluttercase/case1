@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './RecordList.dart';
-import './Carousel.dart';
+import 'package:floryday/RecordList.dart';
+import 'package:floryday/Carousel.dart';
 
 class HomeWidget extends StatefulWidget{
   HomeWidget({Key key}) : super(key: key);
@@ -53,6 +53,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     var backgroundColor = Theme.of(context).backgroundColor;
     var primaryColor = Theme.of(context).primaryColor;
+    
     return SafeArea(
       child: Transform.translate(
         offset: Offset(translateXAnimation.value, 0),
