@@ -1,7 +1,6 @@
 # case
 
-A  Flutter demo.
-
+仿照如下素材：
 ![image](./assets/dashboard.png)
 
 ## Getting Started
