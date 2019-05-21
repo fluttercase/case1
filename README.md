@@ -1,6 +1,8 @@
-# floryday
+# case
 
-A new Flutter project.
+A  Flutter demo.
+
+![image](./assets/dashboard.png)
 
 ## Getting Started
 
