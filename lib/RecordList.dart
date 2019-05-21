@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './CardPageView.dart';
 
 class RecordList extends StatefulWidget {
   final Color color;
@@ -8,21 +9,33 @@ class RecordList extends StatefulWidget {
 }
 
 class _RecordListState extends State<RecordList> {
+  
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.only(top: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(child: Text('Transactions', style: TextStyle(color: widget.color, fontWeight: FontWeight.bold),),),
-                IconButton(icon: Icon(Icons.cached), color: widget.color, onPressed: () {},),
-              ],
+            CardPageView(),
+            SizedBox(height: 6,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: Text('Transactions', style: TextStyle(color: widget.color, fontWeight: FontWeight.bold),),),
+                  IconButton(icon: Icon(Icons.cached), color: widget.color, onPressed: () {},),
+                ],
+              ),
             ),
             Expanded(
               child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 children: <Widget>[
                   Text('Today', style: TextStyle(color: Colors.grey[400]),),
                   rCell(),
@@ -44,7 +57,7 @@ class _RecordListState extends State<RecordList> {
        ),
     );
   }
-
+  
   Widget rCell () {
     return Card(
       margin: EdgeInsets.only(top: 10),

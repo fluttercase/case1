@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './RecordList.dart';
+import './Carousel.dart';
 
 class HomeWidget extends StatefulWidget{
   HomeWidget({Key key}) : super(key: key);
@@ -71,18 +72,26 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
                   color: Color(0xff343442),
                   boxShadow: !openStatus ? [] : [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.2), blurRadius: 20)]
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: topTween.value),
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: topTween.value),
                 child: Column(
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        InkWell(
-                          child: Icon(Icons.menu, color: Colors.white,),
-                          onTap: onMenu,
-                        ),
-                        Expanded(child: Text('My Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        Icon(Icons.add_circle, color: Colors.white)
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: <Widget>[
+                          InkWell(
+                            child: Icon(Icons.menu, color: Colors.white,),
+                            onTap: onMenu,
+                          ),
+                          Expanded(child: Text('My Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                          GestureDetector(
+                            child:  Icon(Icons.add_circle, color: Colors.white), 
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (c) => ItCrowdPage()));
+                            },
+                          )
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: RecordList(),
