@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import './BlankCard.dart';
 import 'package:flutter/material.dart';
 
 class CardPageView extends StatefulWidget {
@@ -9,7 +9,7 @@ class CardPageView extends StatefulWidget {
 }
 
 class _CardPageViewState extends State<CardPageView> {
-  PageController _pagecontroller = new PageController(initialPage: 0, viewportFraction: 0.8,);
+  PageController _pagecontroller = new PageController(initialPage: 0, viewportFraction: 0.9,);
   int selectIndex = 0;
   double scrollValue = 0;
   @override
@@ -23,7 +23,7 @@ class _CardPageViewState extends State<CardPageView> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      height: 180,
+      height: 170,
       child: Stack(
           children: <Widget>[
             Container(
@@ -77,12 +77,8 @@ class _CardPageViewState extends State<CardPageView> {
     return AnimatedBuilder(
       animation: _pagecontroller,
       builder: (context, child) {
-        double value = 1.0;
-        // if (_pagecontroller.position.haveDimensions) {
-          value = scrollValue - index;
-          value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
-        // }
-        print('->>> $value , ${160}');
+        var value = scrollValue - index;
+        value = (1 - (value.abs() * .3)).clamp(0.0, 1.0);
         return Center(
           child: SizedBox(
             height: Curves.easeOut.transform(value) * 160,
@@ -90,10 +86,7 @@ class _CardPageViewState extends State<CardPageView> {
           ),
         );
       },
-      child: Container(
-        margin: const EdgeInsets.all(10.0),
-        color: index % 2 == 0 ? Colors.blue : Colors.red,
-      ),
+      child: BlankCard(width: MediaQuery.of(context).size.width * .9,),
     );
   }
   @override
