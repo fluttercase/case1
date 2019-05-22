@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+String GlobalThemeName = 'Theme1';
 
 class ThemeObject {
   Color primaryColor;
@@ -19,17 +20,9 @@ class ThemeName {
 class CustomThemeData {
   StreamController<ThemeObject> _themectrl = StreamController.broadcast();
   String themeName;
-  ThemeObject theme = ThemeObject(backgroundColor: Colors.white, primaryColor: Colors.black);
-  CustomThemeData({this.themeName = ThemeName.theme1}){
-    initData();
-  }
-  initData () async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var theme = prefs.getString('themeName');
-    if (theme != null) {
-      changeTheme(theme);
-    }
-  }
+  static ThemeObject theme = ThemeObject(backgroundColor: Colors.white, primaryColor: Colors.black);
+  CustomThemeData({this.themeName = ThemeName.theme1});
+
   Stream<ThemeObject> get stream {
     return _themectrl.stream;
   }
@@ -77,4 +70,9 @@ ThemeObject getTheme (String name) {
 Future<String> getThemeName () async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('themeName') ?? 'Theme1';
+}
+
+Future getStorageTheme () async {
+  String name = await getThemeName();
+  CustomThemeData.theme = getTheme(name);
 }
