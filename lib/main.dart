@@ -48,16 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.white, // Color for Android
-      statusBarBrightness: Brightness.dark // Dark == white status bar -- for IOS.
-    ));
     var bloc = BlocProvider.of(context);
     return StreamBuilder(
       initialData: bloc.value,
       stream: bloc.stream,
       builder: (context, snapshot) {
         ThemeObject colors =snapshot.data;
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+          statusBarColor: colors.primaryColor, // Color for Android
+          statusBarBrightness: bloc.themeName != 'Theme1' ? Brightness.dark : Brightness.light
+        ));
         return Scaffold(
           backgroundColor: colors.backgroundColor,
           body: Stack(children: <Widget>[
