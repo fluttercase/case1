@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:floryday/Home.dart';
 import 'package:floryday/MenuList.dart';
 import 'package:floryday/CustomThemeData.dart';
+import 'package:floryday/TabbarPage.dart';
 
 void main() async{
   await getStorageTheme();
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               MenuListWidget(),
               HomeWidget()
             ]
-          ,)
+          )
         );
       }
     );

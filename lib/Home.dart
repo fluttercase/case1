@@ -18,7 +18,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
   Animation<double> topTween;
   int aniTime = 300;
   Animation _colorTween;
-
+  int selectedPage = 0;
+  PageController _pctrl;
   @override
   void initState() {
     super.initState();
@@ -35,8 +36,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
     animation = new Tween(begin: 1.0, end: 0.8).animate(curve)..addListener(() {
       setState(() {});
     });
-    _colorTween = ColorTween(begin: Color.fromRGBO(0, 0, 0, 0), end: Color.fromRGBO(0, 0, 0, 0.2))
-        .animate(controller);
+    _colorTween = ColorTween(begin: Color.fromRGBO(0, 0, 0, 0), end: Color.fromRGBO(0, 0, 0, 0.2)).animate(controller);
+    _pctrl = PageController(initialPage: 0, keepPage: false);
+    _pctrl.addListener((){
+      
+    });
   }
   void onMenu () {
     setState(() {
@@ -58,41 +62,88 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
         child: Transform.scale(
           scale: animation.value,
           child: Stack(
+            overflow: Overflow.clip,
             children: <Widget>[
               StreamBuilder(
                 initialData: bloc.value,
                 stream: bloc.stream,
                 builder: (context, snapshot) {
                   ThemeObject colors =snapshot.data;
+                  // return _body(colors);
                   return Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: !openStatus ? [] : [BoxShadow(color: _colorTween.value, blurRadius: 20)],
                       color: colors.backgroundColor,
-                      boxShadow: !openStatus ? [] : [BoxShadow(color: _colorTween.value, blurRadius: 20)]
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: topTween.value),
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            children: <Widget>[
-                              InkWell(
-                                child: Icon(Icons.menu, color: colors.primaryColor,),
-                                onTap: onMenu,
-                              ),
-                              Expanded(child: Text('My Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                              GestureDetector(
-                                child:  Icon(Icons.add_circle, color: Colors.blueAccent), 
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (c) => AddBlankCard()));
-                                },
-                              )
-                            ],
+                        Expanded(
+                          child: PageView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            controller: _pctrl,
+                            itemCount: 4,
+                            itemBuilder: (c, index) {
+                              if (index == 0) {
+                                return _body(colors);
+                              } else {
+                                return Text('Page $index');
+                              }
+                            },
                           ),
                         ),
-                        Expanded(
-                          child: RecordList(),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [BoxShadow(color: Color.fromRGBO(100, 100, 100, 0.1), blurRadius: 2, spreadRadius: 2, offset: Offset(0, -4))],
+                            color: colors.backgroundColor
+                          ),
+                          height: 50,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Material(
+                                  clipBehavior: Clip.antiAlias,
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: colors.backgroundColor,
+                                  child: InkWell(
+                                    child:  Icon(Icons.home, color: selectedPage == 0 ? Colors.blueAccent :colors.primaryColor,),
+                                    onTap:  () {changeTab(0);},
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Material(
+                                  color: colors.backgroundColor,
+                                  child: InkWell(
+                                    child:  Icon(Icons.share, color: selectedPage == 1 ? Colors.blueAccent :colors.primaryColor,),
+                                    onTap:  () {changeTab(1);},
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Material(
+                                  color: colors.backgroundColor,
+                                  child: InkWell(
+                                    child:  Icon(Icons.settings, color: selectedPage == 2 ? Colors.blueAccent :colors.primaryColor,),
+                                    onTap:  () {changeTab(2);},
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Material(
+                                  color: colors.backgroundColor,
+                                  child: InkWell(
+                                    child:  Icon(Icons.person_pin_circle, color: selectedPage == 3 ? Colors.blueAccent :colors.primaryColor,),
+                                    onTap:  () {changeTab(3);},
+                                  ),
+                                ),
+                              ),
+        
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -101,11 +152,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
               ),
               Visibility(
                 visible: openStatus,
-                child: GestureDetector(
-                  child: Container(
-                    color: Colors.transparent,
+                child: Positioned(
+                  child: GestureDetector(
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                    onTap: onMenu,
                   ),
-                  onTap: onMenu,
                 )
               )
             ],
@@ -113,6 +166,43 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
         ),
       ),
     );
+  }
+  void changeTab (int page) {
+    print(page);
+    setState(() {
+      selectedPage = page;
+    });
+    _pctrl.jumpToPage(page);
+  }
+  Widget _body (ThemeObject colors) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: <Widget>[
+                  InkWell(
+                    child: Icon(Icons.menu, color: colors.primaryColor,),
+                    onTap: onMenu,
+                  ),
+                  Expanded(child: Text('My Cards', style: TextStyle(color: colors.primaryColor, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                  GestureDetector(
+                    child:  Icon(Icons.add_circle, color: Colors.blueAccent), 
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (c) => AddBlankCard()));
+                    },
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: RecordList(color: colors.primaryColor,),
+            )
+          ],
+        ),
+      );
   }
   dispose() {
     //路由销毁时需要释放动画资源

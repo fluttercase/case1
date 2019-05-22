@@ -99,7 +99,7 @@ class MenuListWidgetState extends State<MenuListWidget> {
                         icon: Icons.color_lens,
                         onMenuTap: () {
                           onClick(6);
-                          showMyMaterialDialog(context);
+                          showMyMaterialDialog(context, colors);
                         },
                       ),
                     ],
@@ -134,12 +134,13 @@ class MenuListWidgetState extends State<MenuListWidget> {
       }
     }
   }
-  void showMyMaterialDialog(BuildContext context) {
+  void showMyMaterialDialog(BuildContext context, ThemeObject colors) {
     showDialog(
         context: context,
         builder: (context) {
           return new AlertDialog(
-            title: new Text('选择主题'),
+            backgroundColor: colors.backgroundColor,
+            title: Text('选择主题', style: TextStyle(color: colors.primaryColor),),
             content: DropdownButton(
               value: dropdownValue,
               onChanged: (v) {
@@ -150,7 +151,7 @@ class MenuListWidgetState extends State<MenuListWidget> {
                 Navigator.of(context).pop();
               },
               items: ['Theme1', 'Theme2'].map<DropdownMenuItem<String>>((String value){
-                return DropdownMenuItem(value: value, child: Text(value),);
+                return DropdownMenuItem(value: value, child: Text(value,),);
               }).toList(),
             ),
             actions: <Widget>[
