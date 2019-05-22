@@ -3,7 +3,8 @@
 仿照如下素材：
 ![image](./assets/dashboard.png)
 
-demo case: 
+# demo case: 
+
 ![gif](./assets/case1.gif)
 
 
