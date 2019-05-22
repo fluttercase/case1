@@ -134,6 +134,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
                               ),
                               Expanded(
                                 child: Material(
+                                  clipBehavior: Clip.antiAlias,
+                                  borderRadius: BorderRadius.circular(10),
                                   color: colors.backgroundColor,
                                   child: InkWell(
                                     child:  Icon(Icons.person_pin_circle, color: selectedPage == 3 ? Colors.blueAccent :colors.primaryColor,),
