@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:floryday/RecordList.dart';
 import 'package:floryday/Carousel.dart';
+import 'package:floryday/CustomThemeData.dart';
 
 class HomeWidget extends StatefulWidget{
   HomeWidget({Key key}) : super(key: key);
@@ -40,7 +41,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
   void onMenu () {
     setState(() {
       openStatus = !openStatus;
-      print('open: $openStatus');
       if (!openStatus) {
         controller.reverse();
       } else {
@@ -51,9 +51,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = Theme.of(context).backgroundColor;
-    var primaryColor = Theme.of(context).primaryColor;
-    
+    CustomThemeData bloc = BlocProvider.of(context);
     return SafeArea(
       child: Transform.translate(
         offset: Offset(translateXAnimation.value, 0),
@@ -61,38 +59,45 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin{
           scale: animation.value,
           child: Stack(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: backgroundColor,
-                  boxShadow: !openStatus ? [] : [BoxShadow(color: _colorTween.value, blurRadius: 20)]
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: topTween.value),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        children: <Widget>[
-                          InkWell(
-                            child: Icon(Icons.menu, color: primaryColor,),
-                            onTap: onMenu,
-                          ),
-                          Expanded(child: Text('My Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                          GestureDetector(
-                            child:  Icon(Icons.add_circle, color: Colors.blueAccent), 
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (c) => AddBlankCard()));
-                            },
-                          )
-                        ],
-                      ),
+              StreamBuilder(
+                initialData: bloc.value,
+                stream: bloc.stream,
+                builder: (context, snapshot) {
+                  ThemeObject colors =snapshot.data;
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: colors.backgroundColor,
+                      boxShadow: !openStatus ? [] : [BoxShadow(color: _colorTween.value, blurRadius: 20)]
                     ),
-                    Expanded(
-                      child: RecordList(),
-                    )
-                  ],
-                ),
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: topTween.value),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            children: <Widget>[
+                              InkWell(
+                                child: Icon(Icons.menu, color: colors.primaryColor,),
+                                onTap: onMenu,
+                              ),
+                              Expanded(child: Text('My Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              GestureDetector(
+                                child:  Icon(Icons.add_circle, color: Colors.blueAccent), 
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (c) => AddBlankCard()));
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: RecordList(),
+                        )
+                      ],
+                    ),
+                  );
+                }
               ),
               Visibility(
                 visible: openStatus,
