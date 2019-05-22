@@ -5,7 +5,7 @@
 
 # demo case: 
 
-![gif](./assets/case1.gif)
+<img src="./assets/case1.gif" width="250">
 
 
 ## Getting Started
