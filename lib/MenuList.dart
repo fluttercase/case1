@@ -34,72 +34,89 @@ class MenuListWidgetState extends State<MenuListWidget> {
       builder: (context, snapshot) {
         ThemeObject colors = snapshot.data;
         var bcolor = getColor(bloc.themeName);
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 100,),
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(image: AssetImage('assets/u1.jpg'), fit: BoxFit.cover)
+        return SafeArea(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 70,),
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(image: AssetImage('assets/u1.jpg'), fit: BoxFit.cover)
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: Text('Roger Hoffman', style: TextStyle(color: colors.primaryColor, fontWeight: FontWeight.bold),),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 6),
+                        child: Text('San Francisco, CA', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                      ),
+                      SizedBox(height: 20,),
+                      MenuItemButton(
+                        title: 'Dashboard',
+                        icon: Icons.card_giftcard,
+                        color: selected == 1 ? bcolor:Colors.grey,
+                        onMenuTap: () {
+                          onClick(1);
+                        },
+                      ),
+                      MenuItemButton(
+                        title: 'Messages',
+                        color: selected == 2 ? bcolor:Colors.grey,
+                        icon: Icons.email,
+                        onMenuTap: () {onClick(2);},
+                      ),
+                      MenuItemButton(
+                        title: 'Utility Bills',
+                        color: selected == 3 ? bcolor:Colors.grey,
+                        icon: Icons.settings,
+                        newMesg: true,
+                        onMenuTap: () {onClick(3);},
+                      ),
+                      MenuItemButton(
+                        title: 'Founds Transfer',
+                        color: selected == 4 ? bcolor:Colors.grey,
+                        icon: Icons.swap_horiz,
+                        onMenuTap: () {onClick(4);},
+                      ),
+                      MenuItemButton(
+                        title: 'Branches',
+                        color: selected == 5 ? bcolor:Colors.grey,
+                        icon: Icons.blur_linear,
+                        onMenuTap: () {onClick(5);},
+                      ),
+                      MenuItemButton(
+                        title: 'Change Theme',
+                        color: selected == 6 ? bcolor:Colors.grey,
+                        icon: Icons.color_lens,
+                        onMenuTap: () {
+                          onClick(6);
+                          showMyMaterialDialog(context);
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  child: Text('Roger Hoffman', style: TextStyle(color: colors.primaryColor, fontWeight: FontWeight.bold),),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 6),
-                  child: Text('San Francisco, CA', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                ),
-                SizedBox(height: 20,),
-                MenuItemButton(
-                  title: 'Dashboard',
-                  icon: Icons.card_giftcard,
-                  color: selected == 1 ? bcolor:Colors.grey,
-                  onMenuTap: () {
-                    onClick(1);
-                  },
-                ),
-                MenuItemButton(
-                  title: 'Messages',
-                  color: selected == 2 ? bcolor:Colors.grey,
-                  icon: Icons.email,
-                  onMenuTap: () {onClick(2);},
-                ),
-                MenuItemButton(
-                  title: 'Utility Bills',
-                  color: selected == 3 ? bcolor:Colors.grey,
-                  icon: Icons.settings,
-                  onMenuTap: () {onClick(3);},
-                ),
-                MenuItemButton(
-                  title: 'Founds Transfer',
-                  color: selected == 4 ? bcolor:Colors.grey,
-                  icon: Icons.swap_horiz,
-                  onMenuTap: () {onClick(4);},
-                ),
-                MenuItemButton(
-                  title: 'Branches',
-                  color: selected == 5 ? bcolor:Colors.grey,
+              ),
+              Positioned(
+                bottom: 6,
+                left: 20,
+                child: MenuItemButton(
+                  title: 'Logout',
+                  color: Colors.grey,
                   icon: Icons.blur_linear,
-                  onMenuTap: () {onClick(5);},
+                  onMenuTap: () {},
                 ),
-                MenuItemButton(
-                  title: 'Change Theme',
-                  color: selected == 6 ? bcolor:Colors.grey,
-                  icon: Icons.color_lens,
-                  onMenuTap: () {
-                    onClick(6);
-                    showMyMaterialDialog(context);
-                  },
-                ),
-              ],
-            ),
+              )
+            ],
+          ),
         );
       }
     );

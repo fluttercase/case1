@@ -7,7 +7,8 @@ class MenuItemButton extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
-  const MenuItemButton({Key key, this.onMenuTap, this.title, this.icon, this.color}) : super(key: key);
+  final bool newMesg;
+  const MenuItemButton({Key key, this.onMenuTap, this.title, this.icon, this.color, this.newMesg = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,29 @@ class MenuItemButton extends StatelessWidget {
             children: <Widget>[
               Icon(icon, color: color, size: 22),
               SizedBox(width: 6,),
-              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold),)
+              Stack(
+                children: <Widget>[ 
+                  Row(children: <Widget>[
+                    Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 8,)
+                  ],),
+                  Visibility(
+                    visible: newMesg,
+                    child: Positioned(
+                      right: 0,
+                      top: 0,
+                      child: Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Colors.red
+                        ),
+                      ),
+                    ),
+                  )
+                ]
+              )
             ],
           ),
         ),

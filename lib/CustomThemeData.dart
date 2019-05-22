@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String GlobalThemeName = 'Theme1';
+// String GlobalThemeName = 'Theme1';
 
 class ThemeObject {
   Color primaryColor;
