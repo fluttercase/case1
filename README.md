@@ -4,10 +4,7 @@
 ![image](./assets/dashboard.png)
 
 demo case: 
-
-<video controls preload="none">
-    <source src="./assets/case1.mp4" type="video/mp4">
-</video>
+![gif](./assets/case1.gif)
 
 
 ## Getting Started
