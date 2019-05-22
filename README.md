@@ -6,7 +6,8 @@
 # demo case: 
 
 <img src="./assets/case1.gif" width="250">
-
+<img src="./assets/c1.png" width="250">
+<img src="./assets/c2.png" width="250">
 
 ## Getting Started
 
